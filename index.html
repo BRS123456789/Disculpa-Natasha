@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#160d14">
+  <title>Una carta para Natasha</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
+
+    :root {
+      --night: #160d14;
+      --wine: #3a1728;
+      --paper: #f7eee9;
+      --ink: #38252d;
+      --muted: #8d6c78;
+      --rose: #bd657d;
+      --red: #e52d50;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 42px 18px;
+      display: grid;
+      place-items: center;
+      color: var(--paper);
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(145, 53, 86, .25), transparent 38%),
+        radial-gradient(ellipse at 85% 85%, rgba(91, 36, 65, .28), transparent 40%),
+        var(--night);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .page {
+      width: min(760px, 100%);
+      position: relative;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      text-align: center;
+      color: #d79aaa;
+      font-size: .72rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    .letter {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 6vw, 62px);
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.72), rgba(255,255,255,.72)),
+        var(--paper);
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 5px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.42);
+    }
+
+    .letter::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(160, 91, 111, .2);
+      pointer-events: none;
+    }
+
+    h1 {
+      position: relative;
+      margin: 0 0 30px;
+      text-align: center;
+      color: #6e344a;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      margin: 0 0 32px;
+      color: #b77b8d;
+      font-size: 1rem;
+    }
+
+    .ornament::before, .ornament::after {
+      content: "";
+      width: 52px;
+      height: 1px;
+      background: #d7b4be;
+    }
+
+    #letterText {
+      position: relative;
+      min-height: 180px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.16rem, 2.8vw, 1.38rem);
+      line-height: 1.72;
+      white-space: pre-wrap;
+    }
+
+    #letterText p {
+      margin: 0 0 1.15em;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      margin-left: 2px;
+      vertical-align: -2px;
+      background: var(--rose);
+      animation: blink .8s steps(1) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .heart-wrap {
+      display: none;
+      text-align: center;
+      padding: 3px 0 8px;
+    }
+
+    .heart {
+      display: inline-block;
+      color: var(--red);
+      font-family: Arial, sans-serif;
+      font-size: clamp(4.5rem, 15vw, 7rem);
+      line-height: 1;
+      text-shadow: 0 5px 22px rgba(229,45,80,.28);
+      animation: heartbeat 1.15s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.2); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.14); }
+      58% { transform: scale(1); }
+    }
+
+    .signature {
+      display: none;
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid #dfc5cc;
+      text-align: right;
+      color: #71394f;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.45rem;
+      font-style: italic;
+    }
+
+    .signature strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    button {
+      border: 1px solid rgba(230, 177, 192, .5);
+      border-radius: 999px;
+      padding: 10px 18px;
+      color: #f8e9ee;
+      background: rgba(255,255,255,.06);
+      font: inherit;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    button:hover {
+      background: rgba(189,101,125,.2);
+      transform: translateY(-1px);
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      color: #a98291;
+      font-size: .72rem;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 25px 12px; }
+      .letter { padding: 32px 25px; }
+      .letter::before { inset: 8px; }
+      #letterText { line-height: 1.62; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <p class="eyebrow">Una carta escrita desde el corazón</p>
+
+    <article class="letter">
+      <h1>Para Natasha</h1>
+      <div class="ornament" aria-hidden="true">✦</div>
+
+      <div id="letterText" aria-live="polite"></div>
+      <div class="heart-wrap" id="heartWrap" aria-label="Un corazón rojo palpitante">
+        <span class="heart">♥</span>
+      </div>
+
+      <div class="signature" id="signature">
+        Con cariño,
+        <strong>Ray</strong>
+      </div>
+    </article>
+
+    <div class="controls">
+      <button id="skipButton" type="button">Leer la carta completa</button>
+    </div>
+    <p class="footer">Hecho con cariño · Ray</p>
+  </main>
+
+  <script>
+    const paragraphs = [
+      "Mmmm, no sé cómo empezar, así que simplemente diré que lo siento. Pero no un «lo siento» vacío que no implique nada, sino un verdadero sentimiento de arrepentimiento que espero que se entienda en cada palabra que te escribo.",
+      "Natasha, aunque prefiero llamarte chiquilla porque es un ambiente de más confianza, o al menos eso intento, quiero que sepas que desde el primer momento en que te conocí me caíste bien. De hecho, me pareció muy noble por tu parte ayudar a gente con bajos recursos. Eres de verdad una gran persona y estoy seguro de que cumplirás tu sueño.",
+      "Me encanta cuando hablamos de cualquier cosa. Cuando me dijiste que querías una moto, aunque no recuerdo cuál porque no sé de motos, la busqué en internet y la verdad es que me gustó. Aunque no conozco nada del dark romance, me parece interesante que lo leas y, de hecho, te seguiré preguntando cada día si has terminado el libro actual para leer otro y así.",
+      "Ayer me encantó cuando hablamos y es que, sinceramente, tengo tantos sentimientos de felicidad que no puedo explicar cómo en un solo día has conseguido que sienta una confianza que raras veces me ocurre. Obviamente no es todo perfecto y hay cosas malas, pero de lo que conozco de ti, lo único malo que he visto ha sido literalmente la diferencia de horarios, y eso es algo que ni tú puedes controlar ni yo.",
+      "Es decir, eres una persona tan amable y tan buena que el mayor problema es simplemente que no podemos hablar tanto como quisiera, porque querría estar horas hablando contigo.",
+      "Ojalá pudiera, la verdad. Ojalá pudiera estar hablando contigo durante todo el tiempo que fuera. Entrar a tu chat es como estar en un universo aparte, una dimensión aislada de la realidad en la que solo quiero conocerte, saber de ti y de tus gustos. O ni siquiera eso: aunque sea enseñarme dibujos simples. Sea lo que sea, lo importante, obviamente, eres tú.",
+      "Y no quiero cerrar la carta sin remarcar cuánto siento haberte hecho daño. Quiero que sepas que asumo toda mi responsabilidad y que mejoraré como amigo, porque no quiero hacerte daño. Quiero que estés feliz y de la mejor manera posible.",
+      "Que sepas que te quiero muchísimo y que para mí siempre serás mi chiquilla"
+    ];
+
+    const target = document.getElementById('letterText');
+    const heartWrap = document.getElementById('heartWrap');
+    const signature = document.getElementById('signature');
+    const skipButton = document.getElementById('skipButton');
+
+    let timer = null;
+    let finished = false;
+
+    function showCompleteLetter() {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      target.innerHTML = '';
+
+      paragraphs.forEach((text, index) => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        target.appendChild(p);
+
+        if (index === paragraphs.length - 1) {
+          const heart = document.createElement('span');
+          heart.textContent = ' ♥';
+          heart.style.color = '#e52d50';
+          heart.style.fontSize = '1.9em';
+          heart.style.whiteSpace = 'nowrap';
+          heart.style.display = 'inline-block';
+          heart.style.animation = 'heartbeat 1.15s ease-in-out infinite';
+          p.appendChild(heart);
+        }
+      });
+
+      heartWrap.style.display = 'none';
+      signature.style.display = 'block';
+      skipButton.style.display = 'none';
+    }
+
+    function typeLetter() {
+      let paragraphIndex = 0;
+      let charIndex = 0;
+      let currentParagraph = null;
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+
+      function step() {
+        if (paragraphIndex >= paragraphs.length) {
+          cursor.remove();
+          heartWrap.style.display = 'block';
+          signature.style.display = 'block';
+          skipButton.style.display = 'none';
+          finished = true;
+          return;
+        }
+
+        if (!currentParagraph) {
+          currentParagraph = document.createElement('p');
+          target.appendChild(currentParagraph);
+          currentParagraph.appendChild(cursor);
+        }
+
+        const text = paragraphs[paragraphIndex];
+
+        if (charIndex < text.length) {
+          currentParagraph.insertBefore(
+            document.createTextNode(text.charAt(charIndex)),
+            cursor
+          );
+          charIndex++;
+          timer = setTimeout(step, 24);
+        } else {
+          cursor.remove();
+          paragraphIndex++;
+          charIndex = 0;
+          currentParagraph = null;
+          timer = setTimeout(step, 430);
+        }
+      }
+
+      step();
+    }
+
+    skipButton.addEventListener('click', showCompleteLetter);
+    typeLetter();
+  </script>
+</body>
+</html>
